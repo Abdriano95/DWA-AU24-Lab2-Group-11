@@ -1,33 +1,84 @@
-﻿@model DWA_AU24_Lab2_Group_11.Views.Admin.IndexModel
+@model DWA_AU24_Lab2_Group_11.Views.Admin.IndexModel
 @using Microsoft.AspNetCore.Identity
 @inject UserManager<DWA_AU24_Lab2_Group_11.Models.User> UserManager
 @inject RoleManager<IdentityRole> RoleManager
 @{
-    ViewData["Title"] = "Admin Page";
+    ViewData["Title"] = "Admin Panel";
 }
 
-<h3>Admin Page</h3>
+<h1 class="ft-page-title">
+    <i class="bi bi-shield-lock"></i>Admin Panel
+</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>User</th>
-            <th>Roles</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model.Users)
-        {
-            <tr>
-                <td>@user.UserName</td>
-                <td>@string.Join(", ", await UserManager.GetRolesAsync(user))</td>
-                <td>
-                    <form method="post" asp-action="MakeAdmin" asp-route-id="@user.Id">
-                        <button type="submit" class="btn btn-primary">Make Admin</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="ft-crud-card mb-4">
+    <h2 class="ft-section-title">
+        <i class="bi bi-people me-2"></i>User Management
+    </h2>
+    <p class="text-muted mb-3">Manage user roles and permissions for the application.</p>
+</div>
+
+<div class="ft-table-container">
+    @if (Model.Users.Any())
+    {
+        <table class="table ft-crud-table">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Roles</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model.Users)
+                {
+                    var roles = await UserManager.GetRolesAsync(user);
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-person-circle text-muted"></i>
+                                <strong>@user.UserName</strong>
+                            </div>
+                        </td>
+                        <td>
+                            @if (roles.Any())
+                            {
+                                @foreach (var role in roles)
+                                {
+                                    var badgeClass = role == "Admin" ? "bg-danger" : "bg-secondary";
+                                    <span class="badge @badgeClass me-1">@role</span>
+                                }
+                            }
+                            else
+                            {
+                                <span class="text-muted">No roles assigned</span>
+                            }
+                        </td>
+                        <td>
+                            @if (!roles.Contains("Admin"))
+                            {
+                                <form method="post" asp-action="MakeAdmin" asp-route-id="@user.Id" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-outline-primary" title="Promote to Admin">
+                                        <i class="bi bi-shield-plus me-1"></i>Make Admin
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <span class="badge bg-success">
+                                    <i class="bi bi-check-circle me-1"></i>Administrator
+                                </span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="ft-table-empty">
+            <i class="bi bi-people"></i>
+            <p>No users found in the system.</p>
+        </div>
+    }
+</div>

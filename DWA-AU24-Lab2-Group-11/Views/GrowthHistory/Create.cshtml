@@ -1,41 +1,42 @@
-﻿@model DWA_AU24_Lab2_Group_11.Models.GrowthHistory
+@model DWA_AU24_Lab2_Group_11.Models.GrowthHistory
 
 @{
-    ViewData["Title"] = "Create Growth History";
+    ViewData["Title"] = "Add Growth History";
 }
 
-<h1>Create Growth History</h1>
+<h1 class="ft-page-title">
+    <i class="bi bi-plus-circle"></i>Add Growth History
+</h1>
 
-<hr />
-<div class="row">
-    <div class="col-md-6">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-            <!-- Select Planting Schedule -->
-            <div class="form-group">
-                <label asp-for="PlantingScheduleId" class="control-label">Select Harvested Planting Schedule</label>
-                <select asp-for="PlantingScheduleId" class="form-control" asp-items="ViewBag.PlantingScheduleId"></select>
-                <span asp-validation-for="PlantingScheduleId" class="text-danger"></span>
-            </div>
-
-            <!-- Notes -->
-            <div class="form-group">
-                <label asp-for="Notes" class="control-label">Notes</label>
-                <textarea asp-for="Notes" class="form-control" rows="4"></textarea>
-                <span asp-validation-for="Notes" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-            </div>
-        </form>
-    </div>
+<div class="ft-crud-card">
+    <form asp-action="Create" class="ft-form">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+        
+        <div class="form-group mb-3">
+            <label asp-for="PlantingScheduleId" class="form-label">Select Harvested Planting Schedule</label>
+            <select asp-for="PlantingScheduleId" class="form-select" asp-items="ViewBag.PlantingScheduleId">
+                <option value="">-- Select a Harvested Schedule --</option>
+            </select>
+            <span asp-validation-for="PlantingScheduleId" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group mb-3">
+            <label asp-for="Notes" class="form-label">Notes</label>
+            <textarea asp-for="Notes" class="form-control" rows="4" placeholder="Add observations about this growth cycle..."></textarea>
+            <span asp-validation-for="Notes" class="text-danger"></span>
+        </div>
+        
+        <div class="ft-form-actions">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-check-lg me-1"></i>Create Record
+            </button>
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-1"></i>Cancel
+            </a>
+        </div>
+    </form>
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

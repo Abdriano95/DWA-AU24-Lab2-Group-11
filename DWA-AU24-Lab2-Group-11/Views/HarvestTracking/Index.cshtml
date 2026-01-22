@@ -1,78 +1,97 @@
-﻿@model IEnumerable<DWA_AU24_Lab2_Group_11.Models.HarvestTracking>
+@model IEnumerable<DWA_AU24_Lab2_Group_11.Models.HarvestTracking>
 
 @{
     ViewData["Title"] = "Harvest Tracking";
 }
 
-<h1>Harvest Tracking</h1>
+<div class="ft-page-header">
+    <h1 class="ft-page-title">
+        <i class="bi bi-basket"></i>Harvest Tracking
+    </h1>
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-lg me-1"></i>Add Harvest
+    </a>
+</div>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
-</p>
-<table class="table table-hover">
-    <thead>
-        <tr class="table-dark">
-            <th>
-                @Html.DisplayNameFor(model => model.PlantingSchedule.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PlantingSchedule.Crop.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PlantingSchedule.PlantingDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PlantingSchedule.ExpectedHarvestDate)
-            </th>
-            <th>
-                Status / Countdown to Harvest
-            </th>
-            <th>
-                Actions
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PlantingSchedule.Id)
-                </td>
-                <td>
-                    @item.PlantingSchedule.Crop?.Name
-                </td>
-                <td>
-                    @item.PlantingSchedule.PlantingDate.ToShortDateString()
-                </td>
-                <td>
-                    @item.PlantingSchedule.ExpectedHarvestDate?.ToShortDateString()
-                </td>
-                <td>
-                    @if (item.HarvestDate.HasValue)
-                    {
-                        <span class="text-success">Harvested on @item.HarvestDate.Value.ToShortDateString()</span>
-                    }
-                    else
-                    {
-                        <span class="text-warning">Not harvested yet</span>
-                        <br />
-                        <span>@item.DaysUntilHarvest</span>
-                    }
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
-
-                    @if (!item.HarvestDate.HasValue)
-                    {
-                        <form asp-action="MarkAsHarvested" asp-route-id="@item.Id" method="post" style="display:inline;">
-                            <button type="submit" class="btn btn-success btn-sm">Mark as Harvested</button>
-                        </form>
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="ft-table-container">
+    @if (Model.Any())
+    {
+        <table class="table ft-crud-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Crop</th>
+                    <th>Planted</th>
+                    <th>Expected Harvest</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><span class="badge bg-secondary">@item.PlantingSchedule.Id</span></td>
+                        <td><strong>@item.PlantingSchedule.Crop?.Name</strong></td>
+                        <td>@item.PlantingSchedule.PlantingDate.ToString("MMM dd, yyyy")</td>
+                        <td>
+                            @if (item.PlantingSchedule.ExpectedHarvestDate.HasValue)
+                            {
+                                @item.PlantingSchedule.ExpectedHarvestDate.Value.ToString("MMM dd, yyyy")
+                            }
+                            else
+                            {
+                                <span class="text-muted">—</span>
+                            }
+                        </td>
+                        <td>
+                            @if (item.HarvestDate.HasValue)
+                            {
+                                <span class="badge bg-success">
+                                    <i class="bi bi-check-circle me-1"></i>Harvested @item.HarvestDate.Value.ToString("MMM dd")
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark">
+                                    <i class="bi bi-hourglass-split me-1"></i>@item.DaysUntilHarvest
+                                </span>
+                            }
+                        </td>
+                        <td>
+                            <div class="ft-table-actions">
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm" title="View Details">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm" title="Delete">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                                @if (!item.HarvestDate.HasValue)
+                                {
+                                    <form asp-action="MarkAsHarvested" asp-route-id="@item.Id" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-success btn-sm" title="Mark as Harvested">
+                                            <i class="bi bi-check-lg"></i>
+                                        </button>
+                                    </form>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="ft-table-empty">
+            <i class="bi bi-basket"></i>
+            <p>No harvest tracking records found. Start tracking your harvests!</p>
+            <a asp-action="Create" class="btn btn-primary mt-2">
+                <i class="bi bi-plus-lg me-1"></i>Add Harvest
+            </a>
+        </div>
+    }
+</div>

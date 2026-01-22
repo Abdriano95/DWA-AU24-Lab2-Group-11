@@ -1,50 +1,56 @@
-﻿@model DWA_AU24_Lab2_Group_11.Models.Task
+@model DWA_AU24_Lab2_Group_11.Models.Task
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Add Task";
 }
 
-<h1>Create</h1>
+<h1 class="ft-page-title">
+    <i class="bi bi-plus-circle"></i>Add New Task
+</h1>
 
-<h4>Task</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="TaskName" class="control-label"></label>
-                <input asp-for="TaskName" class="form-control" />
-                <span asp-validation-for="TaskName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TaskDescription" class="control-label"></label>
-                <input asp-for="TaskDescription" class="form-control" />
-                <span asp-validation-for="TaskDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TaskDate" class="control-label"></label>
-                <input asp-for="TaskDate" class="form-control" />
-                <span asp-validation-for="TaskDate" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsCompleted" /> @Html.DisplayNameFor(model => model.IsCompleted)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="PlantingScheduleId" class="control-label"></label>
-                <select asp-for="PlantingScheduleId" class ="form-control" asp-items="ViewBag.PlantingScheduleId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="ft-crud-card">
+    <form asp-action="Create" class="ft-form">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+        
+        <div class="form-group mb-3">
+            <label asp-for="TaskName" class="form-label"></label>
+            <input asp-for="TaskName" class="form-control" placeholder="Enter task name" />
+            <span asp-validation-for="TaskName" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group mb-3">
+            <label asp-for="TaskDescription" class="form-label"></label>
+            <textarea asp-for="TaskDescription" class="form-control" rows="3" placeholder="Describe the task..."></textarea>
+            <span asp-validation-for="TaskDescription" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group mb-3">
+            <label asp-for="TaskDate" class="form-label"></label>
+            <input asp-for="TaskDate" class="form-control" type="datetime-local" />
+            <span asp-validation-for="TaskDate" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group mb-3 form-check">
+            <input class="form-check-input" asp-for="IsCompleted" />
+            <label class="form-check-label" asp-for="IsCompleted">@Html.DisplayNameFor(model => model.IsCompleted)</label>
+        </div>
+        
+        <div class="form-group mb-3">
+            <label asp-for="PlantingScheduleId" class="form-label"></label>
+            <select asp-for="PlantingScheduleId" class="form-select" asp-items="ViewBag.PlantingScheduleId">
+                <option value="">-- Select Schedule (Optional) --</option>
+            </select>
+        </div>
+        
+        <div class="ft-form-actions">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-check-lg me-1"></i>Create Task
+            </button>
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-1"></i>Cancel
+            </a>
+        </div>
+    </form>
 </div>
 
 @section Scripts {

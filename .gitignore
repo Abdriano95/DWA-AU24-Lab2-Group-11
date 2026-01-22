@@ -361,3 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+.cursor/plans/farmtrack_portfolio_refactoring_87b51d34.plan.md

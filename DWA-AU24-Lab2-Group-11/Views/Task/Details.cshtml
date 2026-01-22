@@ -1,48 +1,55 @@
-﻿@model DWA_AU24_Lab2_Group_11.Models.Task
+@model DWA_AU24_Lab2_Group_11.Models.Task
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Task Details";
 }
 
-<h1>Details</h1>
+<h1 class="ft-page-title">
+    <i class="bi bi-check2-square"></i>Task Details
+</h1>
 
-<div>
-    <h4>Task</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TaskName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TaskName)
+<div class="ft-crud-card">
+    <dl class="ft-detail-list">
+        <dt>@Html.DisplayNameFor(model => model.TaskName)</dt>
+        <dd>@Html.DisplayFor(model => model.TaskName)</dd>
+        
+        <dt>@Html.DisplayNameFor(model => model.TaskDescription)</dt>
+        <dd>@(string.IsNullOrEmpty(Model.TaskDescription) ? "—" : Model.TaskDescription)</dd>
+        
+        <dt>@Html.DisplayNameFor(model => model.TaskDate)</dt>
+        <dd>@Model.TaskDate.ToString("MMMM dd, yyyy 'at' h:mm tt")</dd>
+        
+        <dt>Status</dt>
+        <dd>
+            @if (Model.IsCompleted)
+            {
+                <span class="badge bg-success"><i class="bi bi-check-lg me-1"></i>Completed</span>
+            }
+            else
+            {
+                <span class="badge bg-warning text-dark"><i class="bi bi-clock me-1"></i>Pending</span>
+            }
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TaskDescription)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TaskDescription)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TaskDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TaskDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsCompleted)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsCompleted)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PlantingSchedule)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PlantingSchedule.Id)
+        
+        <dt>@Html.DisplayNameFor(model => model.PlantingSchedule)</dt>
+        <dd>
+            @if (Model.PlantingSchedule != null)
+            {
+                <span class="badge bg-info">Schedule #@Model.PlantingSchedule.Id</span>
+            }
+            else
+            {
+                <span class="text-muted">Not linked to a schedule</span>
+            }
         </dd>
     </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    
+    <div class="ft-form-actions">
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">
+            <i class="bi bi-pencil me-1"></i>Edit
+        </a>
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i>Back to List
+        </a>
+    </div>
 </div>

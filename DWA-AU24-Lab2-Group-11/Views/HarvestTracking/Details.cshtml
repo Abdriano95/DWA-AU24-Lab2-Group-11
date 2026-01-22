@@ -1,73 +1,70 @@
-﻿@model DWA_AU24_Lab2_Group_11.Models.HarvestTracking
+@model DWA_AU24_Lab2_Group_11.Models.HarvestTracking
 
 @{
     ViewData["Title"] = "Harvest Details";
 }
 
-<h1>Harvest Details</h1>
+<h1 class="ft-page-title">
+    <i class="bi bi-basket"></i>Harvest Details
+</h1>
 
-<div>
-    <h4>Harvest Tracking</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            Planting Schedule ID
-        </dt>
-        <dd class="col-sm-10">
-            @Model.PlantingSchedule.Id
-        </dd>
-
-        <dt class="col-sm-2">
-            Crop Name
-        </dt>
-        <dd class="col-sm-10">
-            @Model.PlantingSchedule.Crop?.Name
-        </dd>
-
-        <dt class="col-sm-2">
-            Planting Date
-        </dt>
-        <dd class="col-sm-10">
-            @Model.PlantingSchedule.PlantingDate.ToShortDateString()
-        </dd>
-
-        <dt class="col-sm-2">
-            Expected Harvest Date
-        </dt>
-        <dd class="col-sm-10">
-            @Model.PlantingSchedule.ExpectedHarvestDate?.ToShortDateString()
-        </dd>
-
-        <dt class="col-sm-2">
-            Countdown to Harvest
-        </dt>
-        <dd class="col-sm-10">
-            @Model.DaysUntilHarvest
-        </dd>
-
-        <dt class="col-sm-2">
-            Harvest Status
-        </dt>
-        <dd class="col-sm-10">
-            @if (Model.HarvestDate.HasValue)
+<div class="ft-crud-card">
+    <dl class="ft-detail-list">
+        <dt>Schedule ID</dt>
+        <dd><span class="badge bg-secondary">#@Model.PlantingSchedule.Id</span></dd>
+        
+        <dt>Crop Name</dt>
+        <dd><strong>@Model.PlantingSchedule.Crop?.Name</strong></dd>
+        
+        <dt>Planting Date</dt>
+        <dd>@Model.PlantingSchedule.PlantingDate.ToString("MMMM dd, yyyy")</dd>
+        
+        <dt>Expected Harvest Date</dt>
+        <dd>
+            @if (Model.PlantingSchedule.ExpectedHarvestDate.HasValue)
             {
-                <span class="text-success">Harvested on @Model.HarvestDate.Value.ToShortDateString()</span>
+                @Model.PlantingSchedule.ExpectedHarvestDate.Value.ToString("MMMM dd, yyyy")
             }
             else
             {
-                <span class="text-warning">Not harvested yet</span>
+                <span class="text-muted">—</span>
+            }
+        </dd>
+        
+        <dt>Countdown</dt>
+        <dd>@Model.DaysUntilHarvest</dd>
+        
+        <dt>Harvest Status</dt>
+        <dd>
+            @if (Model.HarvestDate.HasValue)
+            {
+                <span class="badge bg-success">
+                    <i class="bi bi-check-circle me-1"></i>Harvested on @Model.HarvestDate.Value.ToString("MMMM dd, yyyy")
+                </span>
+            }
+            else
+            {
+                <span class="badge bg-warning text-dark">
+                    <i class="bi bi-hourglass-split me-1"></i>Not harvested yet
+                </span>
             }
         </dd>
     </dl>
-</div>
-
-<div>
-    @if (!Model.HarvestDate.HasValue)
-    {
-        <form asp-action="MarkAsHarvested" asp-route-id="@Model.Id" method="post" style="display:inline;">
-            <button type="submit" class="btn btn-success">Mark as Harvested</button>
-        </form>
-    }
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    
+    <div class="ft-form-actions">
+        @if (!Model.HarvestDate.HasValue)
+        {
+            <form asp-action="MarkAsHarvested" asp-route-id="@Model.Id" method="post" class="d-inline">
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-check-lg me-1"></i>Mark as Harvested
+                </button>
+            </form>
+        }
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+            <i class="bi bi-pencil me-1"></i>Edit
+        </a>
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i>Back to List
+        </a>
+    </div>
 </div>

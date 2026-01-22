@@ -1,41 +1,77 @@
-﻿@model IEnumerable<DWA_AU24_Lab2_Group_11.Models.GrowthHistory>
+@model IEnumerable<DWA_AU24_Lab2_Group_11.Models.GrowthHistory>
 
 @{
     ViewData["Title"] = "Growth History";
 }
 
-<h1>Growth History</h1>
+<div class="ft-page-header">
+    <h1 class="ft-page-title">
+        <i class="bi bi-graph-up"></i>Growth History
+    </h1>
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-lg me-1"></i>Add Record
+    </a>
+</div>
 
-<table class="table table-hover">
-    <thead>
-        <tr class="table-dark">
-            <th>Crop Name</th>
-            <th>Planting Date</th>
-            <th>Harvest Date</th>
-            <th>Days</th>
-            <th>Notes</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.CropName</td>
-                <td>@item.PlantingDate.ToShortDateString()</td>
-                <td>@item.HarvestDate.ToShortDateString()</td>
-                <td>@item.DaysBetween</td>
-                <td>
-                    <!-- Textarea for Notes -->
-                    <textarea class="form-control" rows="3" readonly>@item.Notes</textarea>
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<a asp-action="Create" class="btn btn-success">Add New Growth History</a>
+<div class="ft-table-container">
+    @if (Model.Any())
+    {
+        <table class="table ft-crud-table">
+            <thead>
+                <tr>
+                    <th>Crop</th>
+                    <th>Planted</th>
+                    <th>Harvested</th>
+                    <th>Growth Days</th>
+                    <th>Notes</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><strong>@item.CropName</strong></td>
+                        <td>@item.PlantingDate.ToString("MMM dd, yyyy")</td>
+                        <td>@item.HarvestDate.ToString("MMM dd, yyyy")</td>
+                        <td>
+                            <span class="badge bg-info">@item.DaysBetween days</span>
+                        </td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.Notes))
+                            {
+                                <small class="text-muted" title="@item.Notes">
+                                    @(item.Notes.Length > 50 ? item.Notes.Substring(0, 50) + "..." : item.Notes)
+                                </small>
+                            }
+                            else
+                            {
+                                <span class="text-muted">—</span>
+                            }
+                        </td>
+                        <td>
+                            <div class="ft-table-actions">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm" title="Delete">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="ft-table-empty">
+            <i class="bi bi-graph-up-arrow"></i>
+            <p>No growth history records found. Start tracking your crop growth cycles!</p>
+            <a asp-action="Create" class="btn btn-primary mt-2">
+                <i class="bi bi-plus-lg me-1"></i>Add Record
+            </a>
+        </div>
+    }
+</div>

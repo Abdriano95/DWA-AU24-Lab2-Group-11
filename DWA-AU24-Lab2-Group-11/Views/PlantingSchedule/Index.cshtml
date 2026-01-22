@@ -1,75 +1,106 @@
-﻿@model IEnumerable<DWA_AU24_Lab2_Group_11.Models.PlantingSchedule>
+@model IEnumerable<DWA_AU24_Lab2_Group_11.Models.PlantingSchedule>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Planting Schedules";
 }
 
-<h1>Planting Schedules</h1>
+<div class="ft-page-header">
+    <h1 class="ft-page-title">
+        <i class="bi bi-calendar-event"></i>Planting Schedules
+    </h1>
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-lg me-1"></i>Add Schedule
+    </a>
+</div>
 
 @if (TempData["ErrorMessage"] != null)
 {
-    <div class="alert alert-danger">
-        @TempData["ErrorMessage"]
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle me-2"></i>@TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
-</p>
-<table class="table table-hover">
-    <thead>
-        <tr class="table-dark">
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Crop.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PlantingDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OptimalPlantingDate)
-            </th>
-            <th>
-                Expected Harvest Date
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Location)
-            </th>
-            <th>
-                Actions
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Crop.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PlantingDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OptimalPlantingDate)
-                </td>
-                <td>
-                    @item.ExpectedHarvestDate?.ToShortDateString()
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Location)
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="ft-table-container">
+    @if (Model.Any())
+    {
+        <table class="table ft-crud-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Crop</th>
+                    <th>Planting Date</th>
+                    <th>Optimal Date</th>
+                    <th>Expected Harvest</th>
+                    <th>Location</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><span class="badge bg-secondary">@item.Id</span></td>
+                        <td><strong>@Html.DisplayFor(modelItem => item.Crop.Name)</strong></td>
+                        <td>@item.PlantingDate.ToString("MMM dd, yyyy")</td>
+                        <td>
+                            @if (item.OptimalPlantingDate.HasValue)
+                            {
+                                @item.OptimalPlantingDate.Value.ToString("MMM dd, yyyy")
+                            }
+                            else
+                            {
+                                <span class="text-muted">—</span>
+                            }
+                        </td>
+                        <td>
+                            @if (item.ExpectedHarvestDate.HasValue)
+                            {
+                                <span class="text-success">
+                                    <i class="bi bi-basket me-1"></i>@item.ExpectedHarvestDate.Value.ToString("MMM dd, yyyy")
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="text-muted">—</span>
+                            }
+                        </td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.Location))
+                            {
+                                <i class="bi bi-geo-alt me-1"></i>@item.Location
+                            }
+                            else
+                            {
+                                <span class="text-muted">—</span>
+                            }
+                        </td>
+                        <td>
+                            <div class="ft-table-actions">
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm" title="View Details">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm" title="Delete">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="ft-table-empty">
+            <i class="bi bi-calendar-x"></i>
+            <p>No planting schedules found. Create your first schedule to get started!</p>
+            <a asp-action="Create" class="btn btn-primary mt-2">
+                <i class="bi bi-plus-lg me-1"></i>Add Schedule
+            </a>
+        </div>
+    }
+</div>

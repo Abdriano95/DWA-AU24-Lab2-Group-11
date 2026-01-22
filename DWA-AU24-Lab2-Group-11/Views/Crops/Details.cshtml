@@ -1,36 +1,31 @@
-﻿@model DWA_AU24_Lab2_Group_11.Models.Crop
+@model DWA_AU24_Lab2_Group_11.Models.Crop
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Crop Details";
 }
 
-<h1>Details</h1>
+<h1 class="ft-page-title">
+    <i class="bi bi-flower1"></i>Crop Details
+</h1>
 
-<div>
-    <h4>Crop</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GrowingDurationInDays)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GrowingDurationInDays)
-        </dd>
+<div class="ft-crud-card">
+    <dl class="ft-detail-list">
+        <dt>@Html.DisplayNameFor(model => model.Name)</dt>
+        <dd>@Html.DisplayFor(model => model.Name)</dd>
+        
+        <dt>@Html.DisplayNameFor(model => model.Type)</dt>
+        <dd><span class="badge bg-success">@Html.DisplayFor(model => model.Type)</span></dd>
+        
+        <dt>@Html.DisplayNameFor(model => model.GrowingDurationInDays)</dt>
+        <dd>@Html.DisplayFor(model => model.GrowingDurationInDays) days</dd>
     </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    
+    <div class="ft-form-actions">
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">
+            <i class="bi bi-pencil me-1"></i>Edit
+        </a>
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i>Back to List
+        </a>
+    </div>
 </div>

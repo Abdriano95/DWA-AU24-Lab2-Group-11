@@ -1,4 +1,4 @@
-﻿using DWA_AU24_Lab2_Group_11.Data;
+using DWA_AU24_Lab2_Group_11.Data;
 using DWA_AU24_Lab2_Group_11.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
@@ -11,21 +11,35 @@ using Task = System.Threading.Tasks.Task;
 
 namespace DWA_AU24_Lab2_Group_11.Services
 {
+    /// <summary>
+    /// Background service that automatically generates harvest reminder notifications.
+    /// Runs periodically to check for upcoming harvests and creates notifications
+    /// at 7 days and 1 day before expected harvest dates.
+    /// </summary>
     public class NotificationService : IHostedService, IDisposable
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<NotificationService> _logger;
         private Timer _timer;
 
+        /// <summary>
+        /// Initializes a new instance of the NotificationService.
+        /// </summary>
+        /// <param name="serviceProvider">Service provider for creating scoped services.</param>
+        /// <param name="logger">Logger for diagnostic output.</param>
         public NotificationService(IServiceProvider serviceProvider, ILogger<NotificationService> logger)
         {
             _serviceProvider = serviceProvider;
             _logger = logger;
         }
 
+        /// <summary>
+        /// Starts the notification service and begins periodic checking.
+        /// </summary>
+        /// <param name="cancellationToken">Token to signal cancellation.</param>
+        /// <returns>A completed task.</returns>
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            // Log the start of the service
             _logger.LogInformation("Notification service started at: {Time}", DateTime.Now);
 
             // Start the timer to check for notifications every 1 minute (for testing purposes)
@@ -33,6 +47,11 @@ namespace DWA_AU24_Lab2_Group_11.Services
             return Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Checks all planting schedules and creates notifications for upcoming harvests.
+        /// Creates notifications at 7 days and 1 day before expected harvest dates.
+        /// </summary>
+        /// <param name="state">Timer state (unused).</param>
         public void HandleNotifications(object state)
         {
             using (var scope = _serviceProvider.CreateScope())
@@ -92,17 +111,23 @@ namespace DWA_AU24_Lab2_Group_11.Services
             }
         }
 
+        /// <summary>
+        /// Stops the notification service and cancels the timer.
+        /// </summary>
+        /// <param name="cancellationToken">Token to signal cancellation.</param>
+        /// <returns>A completed task.</returns>
         public Task StopAsync(CancellationToken cancellationToken)
         {
             _timer?.Change(Timeout.Infinite, 0);
             return Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Disposes of the timer resource.
+        /// </summary>
         public void Dispose()
         {
             _timer?.Dispose();
         }
-
-       
     }
 }
