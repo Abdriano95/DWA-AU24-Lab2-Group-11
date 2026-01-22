@@ -1,93 +1,144 @@
 @{
     WeatherData weatherData = ViewBag.WeatherData as WeatherData;
-    ViewData["Title"] = "Welcome Back!";
+    ViewData["Title"] = "Dashboard";
 }
 
-<!-- Modern Header with wave and refreshing style -->
-<h1 style="font-family: 'Pacifico', cursive, fantasy, sans-serif;
-           font-size: 3rem;
-           text-align: center;
-           text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-           color: var(--bs-primary);">
-    🌾 Welcome @ViewBag.FirstName to FarmTracker 🌾
+<!-- Hero Welcome Section -->
+<h1 class="ft-hero-title">
+    <i class="bi bi-flower2 me-2"></i>Welcome back, @ViewBag.FirstName!
 </h1>
-<b>&emsp;</b>
 
+<!-- Dashboard Grid -->
+<div class="ft-dashboard-grid">
+    <!-- Weather Widget -->
+    <div class="ft-widget ft-weather-widget">
+        <h2 class="ft-section-title">
+            <i class="bi bi-cloud-sun me-2"></i>Weather
+        </h2>
+        @if (weatherData != null)
+        {
+            var weatherEmoji = weatherData.Icon switch {
+                "01d" or "01n" => "☀️",
+                "02d" or "02n" => "⛅",
+                "03d" or "03n" => "☁️",
+                "04d" or "04n" => "☁️",
+                "09d" or "09n" => "🌧️",
+                "10d" or "10n" => "🌦️",
+                "11d" or "11n" => "⛈️",
+                "13d" or "13n" => "❄️",
+                "50d" or "50n" => "🌫️",
+                _ => "🌤️"
+            };
+            var iconUrl = $"https://openweathermap.org/img/wn/{weatherData.Icon}@@2x.png";
+            <div class="ft-weather-display">
+                <div class="ft-weather-icon-wrapper">
+                    <span id="weather-emoji" class="ft-weather-emoji">@weatherEmoji</span>
+                    <img id="weather-icon" 
+                         src="@iconUrl" 
+                         alt="Weather"
+                         class="ft-weather-icon"
+                         onload="document.getElementById('weather-emoji').style.display='none'; this.style.display='inline';"
+                         onerror="this.style.display='none';">
+                </div>
+                <div class="ft-weather-details">
+                    <div class="ft-weather-location">
+                        <i class="bi bi-geo-alt me-1"></i>@weatherData.Location
+                    </div>
+                    <div class="ft-weather-temp">@weatherData.Temperature°C</div>
+                    <div class="ft-weather-humidity">
+                        <i class="bi bi-droplet me-1"></i>@weatherData.Humidity% humidity
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="ft-empty-state">
+                <i class="bi bi-cloud-slash"></i>
+                <p>Unable to fetch weather data</p>
+            </div>
+        }
+    </div>
 
-<!-- Container för Notifications och Tasks -->
-<div style="display: flex; gap: 20px; align-items: flex-start;">
-    <!-- Notifications -->
-    <div style="flex: 1; border-right: 2px solid var(--bs-light); padding-right: 20px;">
-        <h2 style="color: var(--bs-primary);">Notifications</h2>
+    <!-- Notifications Widget -->
+    <div class="ft-widget">
+        <h2 class="ft-section-title">
+            <i class="bi bi-bell me-2"></i>Notifications
+            @if (ViewBag.Notifications != null && ((List<DWA_AU24_Lab2_Group_11.Models.Notification>)ViewBag.Notifications).Any())
+            {
+                <span class="badge bg-secondary ms-2">@(((List<DWA_AU24_Lab2_Group_11.Models.Notification>)ViewBag.Notifications).Count)</span>
+            }
+        </h2>
         @if (ViewBag.Notifications != null && ((List<DWA_AU24_Lab2_Group_11.Models.Notification>)ViewBag.Notifications).Any())
         {
-            <ul style="list-style-type: none; padding: 0;">
+            <div class="ft-list">
                 @foreach (var notification in (List<DWA_AU24_Lab2_Group_11.Models.Notification>)ViewBag.Notifications)
                 {
-                    <li style="margin-bottom: 20px;">
-                        <p style="font-weight: bold; color: var(--bs-dark);">@notification.Message</p>
-                        <p style="font-weight: normal; color: var(--bs-secondary);"><strong>Notification Date:</strong> @notification.NotificationDate.ToString("f")</p>
+                    <div class="ft-list-item">
+                        <div class="ft-list-item-content">
+                            <p class="ft-list-item-title">@notification.Message</p>
+                            <p class="ft-list-item-meta">
+                                <i class="bi bi-clock me-1"></i>@notification.NotificationDate.ToString("MMM dd, yyyy 'at' h:mm tt")
+                            </p>
+                        </div>
                         <form method="post" action="@Url.Action("MarkAsRead", "Home", new { id = notification.Id })">
-                            <button type="submit" class="btn btn-info">Mark as Read</button>
+                            <button type="submit" class="btn btn-sm btn-outline-info">
+                                <i class="bi bi-check2 me-1"></i>Mark Read
+                            </button>
                         </form>
-                        <hr style="border: 2px solid var(--bs-secondary);" />
-                    </li>
+                    </div>
                 }
-            </ul>
+            </div>
         }
         else
         {
-            <p>No new notifications.</p>
+            <div class="ft-empty-state">
+                <i class="bi bi-bell-slash"></i>
+                <p>No new notifications</p>
+            </div>
         }
     </div>
 
-
-    <!-- Tasks -->
-    <div style="flex: 1; padding-left: 20px;">
-        <h2 style="color: var(--bs-primary);">Tasks</h2>
+    <!-- Tasks Widget -->
+    <div class="ft-widget">
+        <h2 class="ft-section-title">
+            <i class="bi bi-check2-square me-2"></i>Upcoming Tasks
+            @if (ViewBag.Tasks != null && ((List<DWA_AU24_Lab2_Group_11.Models.Task>)ViewBag.Tasks).Any())
+            {
+                <span class="badge bg-primary ms-2">@(((List<DWA_AU24_Lab2_Group_11.Models.Task>)ViewBag.Tasks).Count)</span>
+            }
+        </h2>
         @if (ViewBag.Tasks != null && ((List<DWA_AU24_Lab2_Group_11.Models.Task>)ViewBag.Tasks).Any())
         {
-            <ul style="list-style-type: none; padding: 0;">
+            <div class="ft-list">
                 @foreach (var task in (List<DWA_AU24_Lab2_Group_11.Models.Task>)ViewBag.Tasks)
                 {
-                    <li style="margin-bottom: 20px;">
-                        <p style="font-weight: bold; color: var(--bs-dark);"><strong>@task.TaskName</strong></p>
-                        <p style="font-weight: normal; color: var(--bs-secondary);">@task.TaskDescription</p>
-                        <p style="font-weight: normal; color: var(--bs-secondary);"><strong>Due Date:</strong> @task.TaskDate.ToString("f")</p>
+                    <div class="ft-list-item">
+                        <div class="ft-list-item-content">
+                            <p class="ft-list-item-title">@task.TaskName</p>
+                            @if (!string.IsNullOrEmpty(task.TaskDescription))
+                            {
+                                <p class="ft-list-item-description">@task.TaskDescription</p>
+                            }
+                            <p class="ft-list-item-meta">
+                                <i class="bi bi-calendar-event me-1"></i>Due: @task.TaskDate.ToString("MMM dd, yyyy 'at' h:mm tt")
+                            </p>
+                        </div>
                         <form method="post" action="@Url.Action("MarkTaskAsCompleted", "Home", new { id = task.Id })">
-                            <button type="submit" class="btn btn-success">Mark as Completed</button>
+                            <button type="submit" class="btn btn-sm btn-outline-success">
+                                <i class="bi bi-check-lg me-1"></i>Complete
+                            </button>
                         </form>
-                        <hr style="border: 2px solid var(--bs-secondary);" />
-                    </li>
+                    </div>
                 }
-            </ul>
+            </div>
         }
         else
         {
-            <p>No upcoming tasks.</p>
+            <div class="ft-empty-state">
+                <i class="bi bi-check-circle"></i>
+                <p>All caught up! No pending tasks.</p>
+            </div>
         }
     </div>
 </div>
-
-<!-- Weather Information -->
-<div>
-    <h2 style="color: var(--bs-primary);">Weather Information</h2>
-    @if (weatherData != null)
-    {
-        <div class="card text-center" style="width: 18rem;">
-            <img src="@string.Format("https://openweathermap.org/img/wn/{0}@2x.png", weatherData.Icon)" class="card-img-top weather-icon" alt="Weather Icon">
-            <div class="card-body">
-                <h5 class="card-title">@weatherData.Location</h5>
-                <p class="card-text">
-                    <strong>Temperature:</strong> @weatherData.Temperature°C<br>
-                    <strong>Humidity:</strong> @weatherData.Humidity%
-                </p>
-            </div>
-        </div>
-    }
-    else
-    {
-        <p>Unable to fetch weather data at this time.</p>
-    }
-</div>
-

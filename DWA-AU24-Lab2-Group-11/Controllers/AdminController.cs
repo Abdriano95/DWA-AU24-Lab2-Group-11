@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using DWA_AU24_Lab2_Group_11.Models;
@@ -7,58 +7,66 @@ using System.Linq;
 
 namespace DWA_AU24_Lab2_Group_11.Controllers
 {
-    // This controller handles administrative actions and is accessible only to users with the "Admin" role.
+    /// <summary>
+    /// Controller for administrative functions.
+    /// Accessible only to users with the "Admin" role.
+    /// </summary>
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        // Constructor to inject UserManager and RoleManager services.
+        /// <summary>
+        /// Initializes a new instance of the AdminController.
+        /// </summary>
+        /// <param name="userManager">ASP.NET Identity user manager.</param>
+        /// <param name="roleManager">ASP.NET Identity role manager.</param>
         public AdminController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
         }
 
-        // Action to display the list of users and their roles.
+        /// <summary>
+        /// Displays a list of all users and their roles.
+        /// </summary>
+        /// <returns>The admin index view with user list.</returns>
         public IActionResult Index()
         {
-            // Retrieve all users from the UserManager.
             var users = _userManager.Users.ToList();
 
-            // Create a model to pass to the view.
             var model = new Views.Admin.IndexModel
             {
                 Users = users
             };
 
-            // Return the view with the model.
             return View(model);
         }
 
-        // Action to make a user an admin.
+        /// <summary>
+        /// Promotes a user to the Admin role.
+        /// Creates the Admin role if it doesn't exist.
+        /// </summary>
+        /// <param name="id">The user ID to promote.</param>
+        /// <returns>Redirects to the admin index page.</returns>
         [HttpPost]
         public async Task<IActionResult> MakeAdmin(string id)
         {
-            // Find the user by their ID.
             var user = await _userManager.FindByIdAsync(id);
             if (user != null)
             {
-                // Check if the "Admin" role exists, and create it if it doesn't.
                 if (!await _roleManager.RoleExistsAsync("Admin"))
                 {
                     await _roleManager.CreateAsync(new IdentityRole("Admin"));
                 }
 
-                // Add the user to the "Admin" role if they are not already in it.
                 if (!await _userManager.IsInRoleAsync(user, "Admin"))
                 {
                     await _userManager.AddToRoleAsync(user, "Admin");
                 }
             }
 
-            // Redirect back to the Index action.
             return RedirectToAction("Index");
         }
     }

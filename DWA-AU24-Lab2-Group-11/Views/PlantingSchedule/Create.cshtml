@@ -1,70 +1,73 @@
-﻿@model DWA_AU24_Lab2_Group_11.Models.PlantingSchedule
+@model DWA_AU24_Lab2_Group_11.Models.PlantingSchedule
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Add Schedule";
 }
 
-<h1>Create</h1>
+<h1 class="ft-page-title">
+    <i class="bi bi-plus-circle"></i>Add Planting Schedule
+</h1>
 
-<h4>PlantingSchedule</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Cropid" class="control-label"></label>
-                <select asp-for="Cropid" class="form-control" asp-items="ViewBag.Cropid" id="CropSelector"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="PlantingDate" class="control-label"></label>
-                <input asp-for="PlantingDate" class="form-control" />
-                <span asp-validation-for="PlantingDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OptimalPlantingDate" class="control-label"></label>
-                <input asp-for="OptimalPlantingDate" class="form-control" readonly id="OptimalPlantingDate"/>
-                <span asp-validation-for="OptimalPlantingDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="form-control" />
-                <span asp-validation-for="Location" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="ft-crud-card">
+    <form asp-action="Create" class="ft-form">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+        
+        <div class="form-group mb-3">
+            <label asp-for="CropId" class="form-label"></label>
+            <select asp-for="CropId" class="form-select" asp-items="ViewBag.CropId" id="CropSelector">
+                <option value="">-- Select Crop --</option>
+            </select>
+        </div>
+        
+        <div class="form-group mb-3">
+            <label asp-for="PlantingDate" class="form-label"></label>
+            <input asp-for="PlantingDate" class="form-control" type="date" />
+            <span asp-validation-for="PlantingDate" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group mb-3">
+            <label asp-for="OptimalPlantingDate" class="form-label"></label>
+            <input asp-for="OptimalPlantingDate" class="form-control" readonly id="OptimalPlantingDate" />
+            <small class="text-muted">Auto-calculated based on crop selection</small>
+            <span asp-validation-for="OptimalPlantingDate" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group mb-3">
+            <label asp-for="Location" class="form-label"></label>
+            <input asp-for="Location" class="form-control" placeholder="e.g., North Field, Greenhouse A" />
+            <span asp-validation-for="Location" class="text-danger"></span>
+        </div>
+        
+        <div class="ft-form-actions">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-check-lg me-1"></i>Create Schedule
+            </button>
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-1"></i>Cancel
+            </a>
+        </div>
+    </form>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#CropSelector').change(function () {
                 var cropId = $(this).val();
-
                 if (cropId) {
                     $.ajax({
                         url: '@Url.Action("GetOptimalPlantingDate", "PlantingSchedule")',
                         data: { cropId: cropId },
                         success: function (response) {
-                            // Directly set the response (plain date string) to the field
                             $('#OptimalPlantingDate').val(response);
                         },
                         error: function () {
-                            // Handle error cases
                             $('#OptimalPlantingDate').val('');
                         }
                     });
                 } else {
-                    $('#OptimalPlantingDate').val(''); // Clear the field if no crop is selected
+                    $('#OptimalPlantingDate').val('');
                 }
             });
         });

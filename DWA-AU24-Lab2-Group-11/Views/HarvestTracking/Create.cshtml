@@ -1,34 +1,34 @@
-﻿@model DWA_AU24_Lab2_Group_11.Models.HarvestTracking
+@model DWA_AU24_Lab2_Group_11.Models.HarvestTracking
 
 @{
-    ViewData["Title"] = "Create Harvest Tracking";
+    ViewData["Title"] = "Add Harvest Tracking";
 }
 
-<h1>Create Harvest Tracking</h1>
+<h1 class="ft-page-title">
+    <i class="bi bi-plus-circle"></i>Add Harvest Tracking
+</h1>
 
-<h4>Harvest Tracking</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div class="form-group">
-                <label asp-for="PlantingScheduleId" class="control-label"></label>
-                <select asp-for="PlantingScheduleId" class="form-control" asp-items="ViewBag.PlantingScheduleId"></select>
-                <span asp-validation-for="PlantingScheduleId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+<div class="ft-crud-card">
+    <form asp-action="Create" class="ft-form">
+        <div class="form-group mb-3">
+            <label asp-for="PlantingScheduleId" class="form-label"></label>
+            <select asp-for="PlantingScheduleId" class="form-select" asp-items="ViewBag.PlantingScheduleId">
+                <option value="">-- Select Planting Schedule --</option>
+            </select>
+            <span asp-validation-for="PlantingScheduleId" class="text-danger"></span>
+        </div>
+        
+        <div class="ft-form-actions">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-check-lg me-1"></i>Create Tracking
+            </button>
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-1"></i>Cancel
+            </a>
+        </div>
+    </form>
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

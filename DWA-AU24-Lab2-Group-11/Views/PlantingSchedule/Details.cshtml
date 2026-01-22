@@ -1,49 +1,52 @@
-﻿@model DWA_AU24_Lab2_Group_11.Models.PlantingSchedule
+@model DWA_AU24_Lab2_Group_11.Models.PlantingSchedule
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Schedule Details";
 }
 
-<h1>Details</h1>
+<h1 class="ft-page-title">
+    <i class="bi bi-calendar-event"></i>Planting Schedule Details
+</h1>
 
-<div>
-    <h4>PlantingSchedule</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PlantingDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PlantingDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.OptimalPlantingDate)
-        </dt>
-        <dd class="col-sm-10">
-            @if (Model.OptimalPlantingDate != null)
+<div class="ft-crud-card">
+    <dl class="ft-detail-list">
+        <dt>Schedule ID</dt>
+        <dd><span class="badge bg-secondary">#@Model.Id</span></dd>
+        
+        <dt>@Html.DisplayNameFor(model => model.PlantingDate)</dt>
+        <dd>@Model.PlantingDate.ToString("MMMM dd, yyyy")</dd>
+        
+        <dt>@Html.DisplayNameFor(model => model.OptimalPlantingDate)</dt>
+        <dd>
+            @if (Model.OptimalPlantingDate.HasValue)
             {
-                @Html.DisplayFor(model => model.OptimalPlantingDate)
+                @Model.OptimalPlantingDate.Value.ToString("MMMM dd, yyyy")
             }
             else
             {
-                <em>No optimal planting date calculated.</em>
+                <span class="text-muted"><em>No optimal planting date calculated</em></span>
             }
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Location)
+        
+        <dt>@Html.DisplayNameFor(model => model.Location)</dt>
+        <dd>
+            @if (!string.IsNullOrEmpty(Model.Location))
+            {
+                <i class="bi bi-geo-alt me-1"></i>@Model.Location
+            }
+            else
+            {
+                <span class="text-muted">—</span>
+            }
         </dd>
     </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    
+    <div class="ft-form-actions">
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">
+            <i class="bi bi-pencil me-1"></i>Edit
+        </a>
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i>Back to List
+        </a>
+    </div>
 </div>

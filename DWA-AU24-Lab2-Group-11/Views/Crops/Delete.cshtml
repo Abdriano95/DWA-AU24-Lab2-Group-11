@@ -1,39 +1,39 @@
-﻿@model DWA_AU24_Lab2_Group_11.Models.Crop
+@model DWA_AU24_Lab2_Group_11.Models.Crop
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete Crop";
 }
 
-<h1>Delete</h1>
+<h1 class="ft-page-title">
+    <i class="bi bi-trash"></i>Delete Crop
+</h1>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Crop</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GrowingDurationInDays)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GrowingDurationInDays)
-        </dd>
+<div class="ft-delete-card">
+    <p class="ft-delete-warning">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+        Are you sure you want to delete this crop? This action cannot be undone.
+    </p>
+    
+    <dl class="ft-detail-list">
+        <dt>@Html.DisplayNameFor(model => model.Name)</dt>
+        <dd>@Html.DisplayFor(model => model.Name)</dd>
+        
+        <dt>@Html.DisplayNameFor(model => model.Type)</dt>
+        <dd><span class="badge bg-success">@Html.DisplayFor(model => model.Type)</span></dd>
+        
+        <dt>@Html.DisplayNameFor(model => model.GrowingDurationInDays)</dt>
+        <dd>@Html.DisplayFor(model => model.GrowingDurationInDays) days</dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <div class="ft-form-actions">
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash me-1"></i>Delete Crop
+            </button>
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-1"></i>Cancel
+            </a>
+        </div>
     </form>
 </div>

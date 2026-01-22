@@ -1,22 +1,1343 @@
+/* ============================================================================
+   FarmTrack Design System
+   ============================================================================
+   A CSS custom properties (variables) system that extends Bootswatch Minty theme.
+   
+   This design system provides:
+   - Consistent color palette aligned with Minty theme
+   - Typography scale for readable, harmonious text
+   - Spacing scale for consistent layouts
+   - Component tokens for cards, buttons, forms, etc.
+   
+   Usage: Reference variables using var(--ft-variable-name)
+   Example: color: var(--ft-primary);
+   ============================================================================ */
+
+:root {
+    /* ========================================================================
+       COLOR PALETTE
+       ========================================================================
+       Extended from Bootswatch Minty theme colors.
+       Minty is a fresh, clean theme with mint green and coral pink accents.
+       ======================================================================== */
+
+    /* --- Brand Colors (from Minty theme) --- */
+    --ft-primary: #78c2ad;           /* Mint green - main brand color */
+    --ft-primary-hover: #5fb89a;     /* Darker mint for hover states */
+    --ft-primary-light: #a8d9cb;     /* Lighter mint for backgrounds */
+    --ft-primary-dark: #4a9d87;      /* Dark mint for emphasis */
+
+    --ft-secondary: #f3969a;         /* Coral pink - accent color */
+    --ft-secondary-hover: #f07b80;   /* Darker coral for hover states */
+    --ft-secondary-light: #f8c4c6;   /* Lighter coral for backgrounds */
+    --ft-secondary-dark: #e66b70;    /* Dark coral for emphasis */
+
+    /* --- Semantic Colors (from Minty theme) --- */
+    --ft-success: #56cc9d;           /* Green - positive actions/states */
+    --ft-success-hover: #3ebf8a;
+    --ft-success-light: #9ee4c4;
+    --ft-success-dark: #38a87c;
+
+    --ft-info: #6cc3d5;              /* Cyan - informational */
+    --ft-info-hover: #4eb5cb;
+    --ft-info-light: #a8dbe6;
+    --ft-info-dark: #3a9fb3;
+
+    --ft-warning: #ffce67;           /* Yellow - warnings/caution */
+    --ft-warning-hover: #ffc34a;
+    --ft-warning-light: #ffe5a8;
+    --ft-warning-dark: #e6a800;
+
+    --ft-danger: #ff7851;            /* Orange-red - errors/destructive */
+    --ft-danger-hover: #ff5c30;
+    --ft-danger-light: #ffb199;
+    --ft-danger-dark: #e64a1f;
+
+    /* --- Neutral Colors --- */
+    --ft-white: #ffffff;
+    --ft-gray-50: #f8f9fa;           /* Lightest gray - subtle backgrounds */
+    --ft-gray-100: #f1f3f5;
+    --ft-gray-200: #e9ecef;
+    --ft-gray-300: #dee2e6;
+    --ft-gray-400: #ced4da;
+    --ft-gray-500: #adb5bd;          /* Mid gray - borders, disabled */
+    --ft-gray-600: #6c757d;          /* Dark gray - secondary text */
+    --ft-gray-700: #495057;
+    --ft-gray-800: #343a40;          /* Minty dark - body text */
+    --ft-gray-900: #212529;          /* Darkest - headings */
+    --ft-black: #000000;
+
+    /* --- Background Colors --- */
+    --ft-bg-body: var(--ft-white);
+    --ft-bg-subtle: var(--ft-gray-50);
+    --ft-bg-muted: var(--ft-gray-100);
+    --ft-bg-card: var(--ft-white);
+    --ft-bg-nav: var(--ft-primary);
+
+    /* --- Text Colors --- */
+    --ft-text-primary: var(--ft-gray-800);
+    --ft-text-secondary: var(--ft-gray-600);
+    --ft-text-muted: var(--ft-gray-500);
+    --ft-text-light: var(--ft-white);
+    --ft-text-link: var(--ft-primary-dark);
+    --ft-text-link-hover: var(--ft-primary);
+
+    /* --- Border Colors --- */
+    --ft-border-color: var(--ft-gray-300);
+    --ft-border-color-light: var(--ft-gray-200);
+    --ft-border-color-dark: var(--ft-gray-400);
+
+    /* ========================================================================
+       TYPOGRAPHY
+       ========================================================================
+       Font families, sizes, weights, and line heights for consistent text.
+       ======================================================================== */
+
+    /* --- Font Families --- */
+    --ft-font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --ft-font-mono: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --ft-font-display: 'Pacifico', cursive, fantasy, sans-serif; /* For decorative headings */
+
+    /* --- Font Sizes (using rem for accessibility) --- */
+    --ft-text-xs: 0.75rem;           /* 12px */
+    --ft-text-sm: 0.875rem;          /* 14px */
+    --ft-text-base: 1rem;            /* 16px */
+    --ft-text-lg: 1.125rem;          /* 18px */
+    --ft-text-xl: 1.25rem;           /* 20px */
+    --ft-text-2xl: 1.5rem;           /* 24px */
+    --ft-text-3xl: 1.875rem;         /* 30px */
+    --ft-text-4xl: 2.25rem;          /* 36px */
+    --ft-text-5xl: 3rem;             /* 48px - hero headings */
+
+    /* --- Font Weights --- */
+    --ft-font-light: 300;
+    --ft-font-normal: 400;
+    --ft-font-medium: 500;
+    --ft-font-semibold: 600;
+    --ft-font-bold: 700;
+
+    /* --- Line Heights --- */
+    --ft-leading-none: 1;
+    --ft-leading-tight: 1.25;
+    --ft-leading-snug: 1.375;
+    --ft-leading-normal: 1.5;
+    --ft-leading-relaxed: 1.625;
+    --ft-leading-loose: 2;
+
+    /* --- Letter Spacing --- */
+    --ft-tracking-tight: -0.025em;
+    --ft-tracking-normal: 0;
+    --ft-tracking-wide: 0.025em;
+    --ft-tracking-wider: 0.05em;
+
+    /* ========================================================================
+       SPACING SCALE
+       ========================================================================
+       Consistent spacing values for margins, paddings, and gaps.
+       Based on a 4px base unit (0.25rem).
+       ======================================================================== */
+
+    --ft-space-0: 0;
+    --ft-space-1: 0.25rem;           /* 4px - xs */
+    --ft-space-2: 0.5rem;            /* 8px - sm */
+    --ft-space-3: 0.75rem;           /* 12px */
+    --ft-space-4: 1rem;              /* 16px - md (base) */
+    --ft-space-5: 1.25rem;           /* 20px */
+    --ft-space-6: 1.5rem;            /* 24px - lg */
+    --ft-space-8: 2rem;              /* 32px - xl */
+    --ft-space-10: 2.5rem;           /* 40px */
+    --ft-space-12: 3rem;             /* 48px - 2xl */
+    --ft-space-16: 4rem;             /* 64px */
+    --ft-space-20: 5rem;             /* 80px - 3xl */
+    --ft-space-24: 6rem;             /* 96px */
+
+    /* Semantic spacing aliases for easier usage */
+    --ft-space-xs: var(--ft-space-1);
+    --ft-space-sm: var(--ft-space-2);
+    --ft-space-md: var(--ft-space-4);
+    --ft-space-lg: var(--ft-space-6);
+    --ft-space-xl: var(--ft-space-8);
+    --ft-space-2xl: var(--ft-space-12);
+    --ft-space-3xl: var(--ft-space-20);
+
+    /* ========================================================================
+       BORDERS & RADIUS
+       ========================================================================
+       Border widths and radius values for consistent component styling.
+       ======================================================================== */
+
+    /* --- Border Widths --- */
+    --ft-border-0: 0;
+    --ft-border-1: 1px;
+    --ft-border-2: 2px;
+    --ft-border-4: 4px;
+
+    /* --- Border Radius --- */
+    --ft-radius-none: 0;
+    --ft-radius-sm: 0.25rem;         /* 4px - subtle rounding */
+    --ft-radius-md: 0.375rem;        /* 6px - default Bootstrap */
+    --ft-radius-lg: 0.5rem;          /* 8px - cards, modals */
+    --ft-radius-xl: 0.75rem;         /* 12px - larger components */
+    --ft-radius-2xl: 1rem;           /* 16px - prominent elements */
+    --ft-radius-full: 9999px;        /* Fully rounded (pills, avatars) */
+
+    /* ========================================================================
+       SHADOWS
+       ========================================================================
+       Box shadow values for depth and elevation.
+       ======================================================================== */
+
+    --ft-shadow-none: none;
+    --ft-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --ft-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --ft-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --ft-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --ft-shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    --ft-shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+
+    /* Colored shadows for branded elements */
+    --ft-shadow-primary: 0 4px 14px 0 rgba(120, 194, 173, 0.4);
+    --ft-shadow-secondary: 0 4px 14px 0 rgba(243, 150, 154, 0.4);
+
+    /* ========================================================================
+       TRANSITIONS
+       ========================================================================
+       Timing and easing for smooth animations.
+       ======================================================================== */
+
+    --ft-duration-fast: 150ms;
+    --ft-duration-normal: 250ms;
+    --ft-duration-slow: 350ms;
+    --ft-duration-slower: 500ms;
+
+    --ft-ease-linear: linear;
+    --ft-ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ft-ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ft-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Common transition shorthand */
+    --ft-transition-fast: all var(--ft-duration-fast) var(--ft-ease-in-out);
+    --ft-transition-normal: all var(--ft-duration-normal) var(--ft-ease-in-out);
+    --ft-transition-slow: all var(--ft-duration-slow) var(--ft-ease-in-out);
+
+    /* ========================================================================
+       Z-INDEX SCALE
+       ========================================================================
+       Consistent layering for overlays, modals, tooltips, etc.
+       ======================================================================== */
+
+    --ft-z-dropdown: 1000;
+    --ft-z-sticky: 1020;
+    --ft-z-fixed: 1030;
+    --ft-z-modal-backdrop: 1040;
+    --ft-z-modal: 1050;
+    --ft-z-popover: 1060;
+    --ft-z-tooltip: 1070;
+    --ft-z-toast: 1080;
+
+    /* ========================================================================
+       COMPONENT-SPECIFIC TOKENS
+       ========================================================================
+       Pre-defined values for common UI components.
+       ======================================================================== */
+
+    /* --- Cards --- */
+    --ft-card-bg: var(--ft-bg-card);
+    --ft-card-border: var(--ft-border-color-light);
+    --ft-card-radius: var(--ft-radius-lg);
+    --ft-card-shadow: var(--ft-shadow-sm);
+    --ft-card-shadow-hover: var(--ft-shadow-md);
+    --ft-card-padding: var(--ft-space-md);
+    --ft-card-header-bg: var(--ft-gray-50);
+
+    /* --- Buttons --- */
+    --ft-btn-padding-x: var(--ft-space-md);
+    --ft-btn-padding-y: var(--ft-space-2);
+    --ft-btn-radius: var(--ft-radius-md);
+    --ft-btn-font-weight: var(--ft-font-medium);
+    --ft-btn-transition: var(--ft-transition-fast);
+
+    /* --- Forms --- */
+    --ft-input-bg: var(--ft-white);
+    --ft-input-border: var(--ft-border-color);
+    --ft-input-border-focus: var(--ft-primary);
+    --ft-input-radius: var(--ft-radius-md);
+    --ft-input-padding-x: var(--ft-space-3);
+    --ft-input-padding-y: var(--ft-space-2);
+    --ft-input-shadow-focus: 0 0 0 0.2rem rgba(120, 194, 173, 0.25);
+
+    /* --- Tables --- */
+    --ft-table-border: var(--ft-border-color-light);
+    --ft-table-stripe-bg: var(--ft-gray-50);
+    --ft-table-hover-bg: var(--ft-primary-light);
+    --ft-table-header-bg: var(--ft-gray-100);
+
+    /* --- Navigation --- */
+    --ft-nav-bg: var(--ft-primary);
+    --ft-nav-link-color: var(--ft-white);
+    --ft-nav-link-hover-color: rgba(255, 255, 255, 0.85);
+    --ft-nav-brand-color: var(--ft-white);
+    --ft-nav-height: 56px;
+
+    /* --- Badges & Tags --- */
+    --ft-badge-padding-x: var(--ft-space-2);
+    --ft-badge-padding-y: var(--ft-space-1);
+    --ft-badge-radius: var(--ft-radius-full);
+    --ft-badge-font-size: var(--ft-text-xs);
+    --ft-badge-font-weight: var(--ft-font-semibold);
+
+    /* --- Alerts --- */
+    --ft-alert-padding: var(--ft-space-md);
+    --ft-alert-radius: var(--ft-radius-md);
+    --ft-alert-border-width: var(--ft-border-1);
+
+    /* --- Dashboard Widgets --- */
+    --ft-widget-bg: var(--ft-bg-card);
+    --ft-widget-radius: var(--ft-radius-xl);
+    --ft-widget-shadow: var(--ft-shadow-md);
+    --ft-widget-padding: var(--ft-space-lg);
+
+    /* --- Navigation (Enhanced) --- */
+    --ft-nav-link-padding-x: 0.875rem;
+    --ft-nav-link-padding-y: 0.5rem;
+    --ft-nav-link-active-bg: rgba(255, 255, 255, 0.15);
+    --ft-nav-brand-font-size: 1.5rem;
+
+    /* --- Weather Widget (specific) --- */
+    --ft-weather-icon-size: 80px;
+    --ft-weather-emoji-size: 3.5rem;
+    --ft-weather-card-width: 18rem;
+}
+
+/* ============================================================================
+   DARK MODE SUPPORT (Future Enhancement)
+   ============================================================================
+   Uncomment and customize when implementing dark mode.
+   
+   @media (prefers-color-scheme: dark) {
+       :root {
+           --ft-bg-body: #1a1a2e;
+           --ft-bg-card: #16213e;
+           --ft-text-primary: #e4e4e7;
+           --ft-text-secondary: #a1a1aa;
+           ...
+       }
+   }
+   ============================================================================ */
+
+/* ============================================================================
+   BASE STYLES
+   ============================================================================
+   Global resets and base element styling using the design system.
+   ============================================================================ */
+
+/* CRITICAL: Prevent horizontal overflow globally */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 html {
-  font-size: 14px;
+    font-size: 14px;
+    overflow-x: hidden;
+    max-width: 100vw;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    font-family: var(--ft-font-sans);
+    color: var(--ft-text-primary);
+    background-color: var(--ft-bg-body);
+    line-height: var(--ft-leading-normal);
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+}
+
+/* Prevent horizontal overflow on all containers */
+.container,
+.container-fluid {
+    max-width: 100%;
+    overflow-x: hidden;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+/* Ensure images and media don't overflow */
+img, video, iframe, embed, object {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Tables should be contained */
+table {
+    max-width: 100%;
+}
+
+/* Fix Bootstrap row negative margins on mobile */
+@media (max-width: 575.98px) {
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .row > * {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+/* --- Focus States (Accessibility) --- */
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem var(--ft-primary);
+}
+
+/* --- Links --- */
+a {
+    color: var(--ft-text-link);
+    transition: var(--ft-transition-fast);
+}
+
+a:hover {
+    color: var(--ft-text-link-hover);
+}
+
+/* ============================================================================
+   UTILITY CLASSES
+   ============================================================================
+   Helper classes that leverage the design system variables.
+   ============================================================================ */
+
+/* --- Text Colors --- */
+.text-ft-primary { color: var(--ft-primary) !important; }
+.text-ft-secondary { color: var(--ft-secondary) !important; }
+.text-ft-success { color: var(--ft-success) !important; }
+.text-ft-danger { color: var(--ft-danger) !important; }
+.text-ft-warning { color: var(--ft-warning) !important; }
+.text-ft-info { color: var(--ft-info) !important; }
+.text-ft-muted { color: var(--ft-text-muted) !important; }
+
+/* --- Background Colors --- */
+.bg-ft-primary { background-color: var(--ft-primary) !important; }
+.bg-ft-secondary { background-color: var(--ft-secondary) !important; }
+.bg-ft-subtle { background-color: var(--ft-bg-subtle) !important; }
+.bg-ft-muted { background-color: var(--ft-bg-muted) !important; }
+
+/* --- Shadows --- */
+.shadow-ft-sm { box-shadow: var(--ft-shadow-sm) !important; }
+.shadow-ft-md { box-shadow: var(--ft-shadow-md) !important; }
+.shadow-ft-lg { box-shadow: var(--ft-shadow-lg) !important; }
+.shadow-ft-primary { box-shadow: var(--ft-shadow-primary) !important; }
+
+/* --- Border Radius --- */
+.rounded-ft-sm { border-radius: var(--ft-radius-sm) !important; }
+.rounded-ft-md { border-radius: var(--ft-radius-md) !important; }
+.rounded-ft-lg { border-radius: var(--ft-radius-lg) !important; }
+.rounded-ft-xl { border-radius: var(--ft-radius-xl) !important; }
+
+/* --- Spacing Utilities --- */
+.gap-ft-xs { gap: var(--ft-space-xs) !important; }
+.gap-ft-sm { gap: var(--ft-space-sm) !important; }
+.gap-ft-md { gap: var(--ft-space-md) !important; }
+.gap-ft-lg { gap: var(--ft-space-lg) !important; }
+.gap-ft-xl { gap: var(--ft-space-xl) !important; }
+
+/* --- Transitions --- */
+.transition-ft { transition: var(--ft-transition-normal); }
+.transition-ft-fast { transition: var(--ft-transition-fast); }
+
+/* ============================================================================
+   COMPONENT ENHANCEMENTS
+   ============================================================================
+   Enhanced styling for Bootstrap components using design system tokens.
+   These complement (not override) Minty theme defaults.
+   ============================================================================ */
+
+/* --- Modern Navigation Bar --- */
+.ft-navbar {
+    background: linear-gradient(135deg, var(--ft-primary) 0%, var(--ft-primary-dark) 100%);
+    box-shadow: var(--ft-shadow-md);
+    padding-top: 0;
+    padding-bottom: 0;
+    min-height: var(--ft-nav-height);
+}
+
+.ft-brand {
+    font-size: var(--ft-nav-brand-font-size);
+    font-weight: var(--ft-font-bold);
+    color: var(--ft-white) !important;
+    display: flex;
+    align-items: center;
+    padding: var(--ft-space-sm) 0;
+    transition: var(--ft-transition-fast);
+}
+
+.ft-brand:hover {
+    color: var(--ft-white) !important;
+    transform: scale(1.02);
+}
+
+.ft-brand i {
+    font-size: 1.75rem;
+}
+
+.ft-nav-link {
+    color: rgba(255, 255, 255, 0.9) !important;
+    padding: var(--ft-nav-link-padding-y) var(--ft-nav-link-padding-x) !important;
+    border-radius: var(--ft-radius-md);
+    transition: var(--ft-transition-fast);
+    font-weight: var(--ft-font-medium);
+    display: flex;
+    align-items: center;
+    margin: var(--ft-space-1) var(--ft-space-1);
+}
+
+.ft-nav-link:hover,
+.ft-nav-link:focus {
+    color: var(--ft-white) !important;
+    background-color: var(--ft-nav-link-active-bg);
+}
+
+.ft-nav-link i {
+    font-size: 1.1em;
+}
+
+/* Active state for current page */
+.ft-nav-link.active {
+    background-color: var(--ft-nav-link-active-bg);
+    color: var(--ft-white) !important;
+}
+
+/* Logout button styling */
+.ft-logout-btn {
+    background: transparent;
+    border: var(--ft-border-1) solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+}
+
+.ft-logout-btn:hover {
+    background-color: rgba(255, 107, 107, 0.2);
+    border-color: rgba(255, 107, 107, 0.5);
+}
+
+/* Register button highlight */
+.ft-register-btn {
+    background-color: var(--ft-secondary);
+    color: var(--ft-white) !important;
+    border-radius: var(--ft-radius-full);
+    padding: var(--ft-space-2) var(--ft-space-md) !important;
+}
+
+.ft-register-btn:hover {
+    background-color: var(--ft-secondary-hover);
+    transform: translateY(-1px);
+}
+
+/* Mobile navigation adjustments */
+@media (max-width: 991.98px) {
+    .ft-navbar {
+        padding: var(--ft-space-2) var(--ft-space-3);
+    }
+
+    .ft-nav-link {
+        padding: var(--ft-space-3) var(--ft-space-md) !important;
+        margin: var(--ft-space-1) 0;
+        border-radius: var(--ft-radius-md);
+    }
+
+    .ft-register-btn {
+        margin-top: var(--ft-space-2);
+        text-align: center;
+        justify-content: center;
+    }
+
+    .navbar-nav {
+        padding-top: var(--ft-space-2);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: var(--ft-space-2);
+    }
+
+    .navbar-nav:first-child {
+        border-top: none;
+        margin-top: 0;
+        padding-top: 0;
+    }
+}
+
+/* --- Enhanced Cards --- */
+.card.ft-card {
+    border: var(--ft-border-1) solid var(--ft-card-border);
+    border-radius: var(--ft-card-radius);
+    box-shadow: var(--ft-card-shadow);
+    transition: var(--ft-transition-normal);
+}
+
+.card.ft-card:hover {
+    box-shadow: var(--ft-card-shadow-hover);
+    transform: translateY(-2px);
+}
+
+.card.ft-card .card-header {
+    background-color: var(--ft-card-header-bg);
+    border-bottom: var(--ft-border-1) solid var(--ft-card-border);
+}
+
+/* --- Dashboard Widget Card --- */
+.ft-widget {
+    background-color: var(--ft-widget-bg);
+    border-radius: var(--ft-widget-radius);
+    box-shadow: var(--ft-widget-shadow);
+    padding: var(--ft-widget-padding);
+    transition: var(--ft-transition-normal);
+    height: 100%;
+}
+
+.ft-widget:hover {
+    box-shadow: var(--ft-shadow-lg);
+}
+
+/* --- Dashboard Grid Layout --- */
+.ft-dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--ft-space-lg);
+    margin-top: var(--ft-space-lg);
+}
+
+@media (max-width: 991.98px) {
+    .ft-dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 575.98px) {
+    .ft-dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- Weather Widget Styles --- */
+.ft-weather-widget {
+    background: linear-gradient(135deg, var(--ft-info) 0%, var(--ft-primary) 100%);
+    color: var(--ft-white);
+}
+
+.ft-weather-widget .ft-section-title {
+    color: var(--ft-white);
+}
+
+.ft-weather-display {
+    display: flex;
+    align-items: center;
+    gap: var(--ft-space-md);
+}
+
+.ft-weather-icon-wrapper {
+    flex-shrink: 0;
+}
+
+.ft-weather-emoji {
+    font-size: 4rem;
+    line-height: 1;
+}
+
+.ft-weather-icon {
+    width: 80px;
+    height: 80px;
+    display: none;
+}
+
+.ft-weather-details {
+    flex: 1;
+}
+
+.ft-weather-location {
+    font-size: var(--ft-text-lg);
+    font-weight: var(--ft-font-medium);
+    margin-bottom: var(--ft-space-xs);
+    opacity: 0.9;
+}
+
+.ft-weather-temp {
+    font-size: var(--ft-text-4xl);
+    font-weight: var(--ft-font-bold);
+    line-height: 1.1;
+}
+
+.ft-weather-humidity {
+    font-size: var(--ft-text-sm);
+    opacity: 0.85;
+    margin-top: var(--ft-space-xs);
+}
+
+/* --- Empty State --- */
+.ft-empty-state {
+    text-align: center;
+    padding: var(--ft-space-xl) var(--ft-space-md);
+    color: var(--ft-text-muted);
+}
+
+.ft-empty-state i {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: var(--ft-space-md);
+    opacity: 0.5;
+}
+
+.ft-empty-state p {
+    margin: 0;
+    font-size: var(--ft-text-base);
+}
+
+.ft-weather-widget .ft-empty-state {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.ft-weather-widget .ft-empty-state i {
+    opacity: 0.6;
+}
+
+/* --- List Container --- */
+.ft-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+/* --- Main Content Spacing --- */
+main[role="main"] {
+    padding-top: var(--ft-space-xl);
+}
+
+/* --- Hero/Welcome Section --- */
+.ft-hero-title {
+    font-family: var(--ft-font-display);
+    font-size: var(--ft-text-5xl);
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    color: var(--ft-primary);
+    margin-bottom: var(--ft-space-lg);
+}
+
+@media (max-width: 767.98px) {
+    .ft-hero-title {
+        font-size: var(--ft-text-3xl);
+    }
+}
+
+/* --- Section Headers --- */
+.ft-section-title {
+    color: var(--ft-primary);
+    font-size: var(--ft-text-2xl);
+    font-weight: var(--ft-font-semibold);
+    margin-bottom: var(--ft-space-md);
+}
+
+/* --- List Items (Notifications/Tasks) --- */
+.ft-list-item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--ft-space-md);
+    padding: var(--ft-space-md);
+    border-bottom: var(--ft-border-1) solid var(--ft-border-color-light);
+    transition: var(--ft-transition-fast);
+}
+
+.ft-list-item:last-child {
+    border-bottom: none;
+}
+
+.ft-list-item:hover {
+    background-color: var(--ft-bg-subtle);
+}
+
+.ft-list-item-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.ft-list-item-title {
+    font-weight: var(--ft-font-semibold);
+    color: var(--ft-text-primary);
+    margin: 0 0 var(--ft-space-xs) 0;
+    line-height: var(--ft-leading-snug);
+}
+
+.ft-list-item-description {
+    color: var(--ft-text-secondary);
+    font-size: var(--ft-text-sm);
+    margin: 0 0 var(--ft-space-xs) 0;
+    line-height: var(--ft-leading-normal);
+}
+
+.ft-list-item-meta {
+    font-weight: var(--ft-font-normal);
+    color: var(--ft-text-muted);
+    font-size: var(--ft-text-xs);
+    margin: 0;
+}
+
+.ft-list-item-meta i {
+    opacity: 0.7;
+}
+
+.ft-list-item form {
+    flex-shrink: 0;
+}
+
+.ft-list-item .btn {
+    white-space: nowrap;
+}
+
+/* --- Weather Widget Enhancement --- */
+.ft-weather-card {
+    width: var(--ft-weather-card-width);
+    border-radius: var(--ft-card-radius);
+    box-shadow: var(--ft-card-shadow);
+    transition: var(--ft-transition-normal);
+}
+
+.ft-weather-card:hover {
+    box-shadow: var(--ft-shadow-primary);
+}
+
+.ft-weather-card .card-header {
+    padding: var(--ft-space-md);
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--ft-gray-50);
+}
+
+.ft-weather-emoji {
+    font-size: var(--ft-weather-emoji-size);
+}
+
+.ft-weather-icon {
+    width: var(--ft-weather-icon-size);
+    height: var(--ft-weather-icon-size);
+}
+
+/* --- Table Enhancements --- */
+.table.ft-table {
+    border-color: var(--ft-table-border);
+}
+
+.table.ft-table thead th {
+    background-color: var(--ft-table-header-bg);
+    font-weight: var(--ft-font-semibold);
+    border-bottom-width: var(--ft-border-2);
+}
+
+.table.ft-table tbody tr:hover {
+    background-color: var(--ft-table-hover-bg);
+}
+
+/* --- Badge Enhancements --- */
+.badge.ft-badge {
+    padding: var(--ft-badge-padding-y) var(--ft-badge-padding-x);
+    font-size: var(--ft-badge-font-size);
+    font-weight: var(--ft-badge-font-weight);
+    border-radius: var(--ft-badge-radius);
+}
+
+/* --- Action Button Group --- */
+.ft-action-buttons {
+    display: flex;
+    gap: var(--ft-space-sm);
+    flex-wrap: wrap;
+}
+
+.ft-action-buttons .btn {
+    transition: var(--ft-btn-transition);
+}
+
+/* ============================================================================
+   CRUD VIEW STYLES
+   ============================================================================
+   Standardized styling for Index, Create, Edit, Details, Delete views.
+   ============================================================================ */
+
+/* --- Page Title --- */
+.ft-page-title {
+    color: var(--ft-primary);
+    font-size: var(--ft-text-3xl);
+    font-weight: var(--ft-font-bold);
+    margin-bottom: var(--ft-space-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--ft-space-sm);
+}
+
+.ft-page-title i {
+    font-size: 0.9em;
+}
+
+/* --- Page Header with Actions --- */
+.ft-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--ft-space-lg);
+    flex-wrap: wrap;
+    gap: var(--ft-space-md);
+}
+
+.ft-page-header .ft-page-title {
+    margin-bottom: 0;
+}
+
+/* --- CRUD Card Container --- */
+.ft-crud-card {
+    background-color: var(--ft-bg-card);
+    border-radius: var(--ft-radius-lg);
+    box-shadow: var(--ft-shadow-md);
+    padding: var(--ft-space-xl);
+    margin-bottom: var(--ft-space-lg);
+}
+
+/* --- Form Styling --- */
+.ft-form {
+    max-width: 600px;
+}
+
+.ft-form .form-group {
+    margin-bottom: var(--ft-space-md);
+}
+
+.ft-form .form-label,
+.ft-form .control-label {
+    font-weight: var(--ft-font-medium);
+    color: var(--ft-text-primary);
+    margin-bottom: var(--ft-space-xs);
+}
+
+.ft-form .form-control,
+.ft-form .form-select {
+    border-color: var(--ft-border-color);
+    border-radius: var(--ft-radius-md);
+    padding: var(--ft-space-2) var(--ft-space-3);
+    transition: var(--ft-transition-fast);
+}
+
+.ft-form .form-control:focus,
+.ft-form .form-select:focus {
+    border-color: var(--ft-primary);
+    box-shadow: var(--ft-input-shadow-focus);
+}
+
+.ft-form .form-check {
+    padding-top: var(--ft-space-xs);
+}
+
+/* --- Form Actions --- */
+.ft-form-actions {
+    display: flex;
+    gap: var(--ft-space-sm);
+    margin-top: var(--ft-space-lg);
+    padding-top: var(--ft-space-md);
+    border-top: var(--ft-border-1) solid var(--ft-border-color-light);
+}
+
+/* --- Details/Delete Definition List --- */
+.ft-detail-list {
+    margin-bottom: var(--ft-space-lg);
+}
+
+.ft-detail-list dt {
+    font-weight: var(--ft-font-semibold);
+    color: var(--ft-text-secondary);
+    font-size: var(--ft-text-sm);
+    text-transform: uppercase;
+    letter-spacing: var(--ft-tracking-wide);
+    padding: var(--ft-space-sm) 0;
+}
+
+.ft-detail-list dd {
+    color: var(--ft-text-primary);
+    font-size: var(--ft-text-lg);
+    padding: var(--ft-space-sm) 0;
+    margin-bottom: var(--ft-space-sm);
+    border-bottom: var(--ft-border-1) solid var(--ft-border-color-light);
+}
+
+.ft-detail-list dd:last-of-type {
+    border-bottom: none;
+}
+
+/* --- Delete Confirmation --- */
+.ft-delete-card {
+    background-color: var(--ft-bg-card);
+    border-radius: var(--ft-radius-lg);
+    box-shadow: var(--ft-shadow-md);
+    padding: var(--ft-space-xl);
+    border-left: 4px solid var(--ft-danger);
+}
+
+.ft-delete-warning {
+    color: var(--ft-danger);
+    font-size: var(--ft-text-lg);
+    font-weight: var(--ft-font-medium);
+    margin-bottom: var(--ft-space-md);
+    display: flex;
+    align-items: center;
+    gap: var(--ft-space-sm);
+}
+
+/* --- Index Table Container --- */
+.ft-table-container {
+    background-color: var(--ft-bg-card);
+    border-radius: var(--ft-radius-lg);
+    box-shadow: var(--ft-shadow-md);
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+}
+
+.ft-table-container .table {
+    margin-bottom: 0;
+    width: 100%;
+}
+
+/* Enhanced Table for CRUD Index */
+.ft-crud-table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: auto;
+}
+
+.ft-crud-table thead th {
+    background-color: var(--ft-primary);
+    color: var(--ft-white);
+    font-weight: var(--ft-font-semibold);
+    padding: var(--ft-space-md);
+    text-transform: uppercase;
+    font-size: var(--ft-text-sm);
+    letter-spacing: var(--ft-tracking-wide);
+    border: none;
+}
+
+.ft-crud-table tbody td {
+    padding: var(--ft-space-md);
+    vertical-align: middle;
+    border-bottom: var(--ft-border-1) solid var(--ft-border-color-light);
+}
+
+.ft-crud-table tbody tr:hover {
+    background-color: var(--ft-bg-subtle);
+}
+
+.ft-crud-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* --- Table Action Buttons --- */
+.ft-table-actions {
+    display: flex;
+    gap: var(--ft-space-xs);
+    flex-wrap: nowrap;
+}
+
+.ft-table-actions .btn {
+    padding: var(--ft-space-1) var(--ft-space-2);
+    font-size: var(--ft-text-sm);
+}
+
+/* --- Empty Table State --- */
+.ft-table-empty {
+    text-align: center;
+    padding: var(--ft-space-2xl);
+    color: var(--ft-text-muted);
+}
+
+.ft-table-empty i {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: var(--ft-space-md);
+    opacity: 0.5;
+}
+
+/* --- Back Link Styling --- */
+.ft-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ft-space-xs);
+    color: var(--ft-text-secondary);
+    text-decoration: none;
+    transition: var(--ft-transition-fast);
+}
+
+.ft-back-link:hover {
+    color: var(--ft-primary);
+}
+
+/* ============================================================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================================================
+   Mobile-first responsive overrides.
+   ============================================================================ */
+
+/* --- Tablet and Below (max-width: 991.98px) --- */
+@media (max-width: 991.98px) {
+    /* Page headers stack on tablet */
+    .ft-page-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--ft-space-md);
+    }
+
+    .ft-page-header .btn {
+        align-self: flex-start;
+    }
+}
+
+/* --- Mobile (max-width: 767.98px) --- */
+@media (max-width: 767.98px) {
+    /* Reduce page title size */
+    .ft-page-title {
+        font-size: var(--ft-text-2xl);
+    }
+
+    /* Tables become horizontally scrollable */
+    .ft-table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .ft-crud-table {
+        min-width: 100%;
+        width: max-content;
+    }
+
+    .ft-crud-table thead th,
+    .ft-crud-table tbody td {
+        padding: var(--ft-space-sm) var(--ft-space-2);
+        font-size: var(--ft-text-sm);
+    }
+
+    /* Allow text to wrap in name/description columns */
+    .ft-crud-table tbody td:first-child,
+    .ft-crud-table tbody td:nth-child(2) {
+        white-space: normal;
+        word-break: break-word;
+        min-width: 100px;
+    }
+
+    /* Reduce card padding */
+    .ft-crud-card,
+    .ft-delete-card {
+        padding: var(--ft-space-lg);
+    }
+
+    /* Detail list adjustments */
+    .ft-detail-list dd {
+        font-size: var(--ft-text-base);
+    }
+
+    /* Delete warning wraps */
+    .ft-delete-warning {
+        flex-wrap: wrap;
+        font-size: var(--ft-text-base);
+    }
+
+    /* Weather widget adjustments */
+    .ft-weather-temp {
+        font-size: var(--ft-text-3xl);
+    }
+
+    /* Section titles */
+    .ft-section-title {
+        font-size: var(--ft-text-xl);
+    }
+
+    /* Ensure main content doesn't overflow */
+    main[role="main"] {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+}
+
+/* --- Small Mobile (max-width: 575.98px) --- */
+@media (max-width: 575.98px) {
+    :root {
+        /* Reduce spacing on mobile */
+        --ft-card-padding: var(--ft-space-sm);
+        --ft-widget-padding: var(--ft-space-md);
+    }
+
+    /* Page title even smaller */
+    .ft-page-title {
+        font-size: var(--ft-text-xl);
+        flex-wrap: wrap;
+    }
+
+    /* Forms full width */
+    .ft-form {
+        max-width: 100%;
+    }
+
+    /* Form actions stack vertically */
+    .ft-form-actions {
+        flex-direction: column;
+    }
+
+    .ft-form-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* List items stack */
+    .ft-list-item {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--ft-space-sm);
+    }
+
+    .ft-list-item form {
+        align-self: flex-start;
+    }
+
+    .ft-list-item .btn {
+        width: auto;
+    }
+
+    /* Cards even more compact */
+    .ft-crud-card,
+    .ft-delete-card {
+        padding: var(--ft-space-md);
+        border-radius: var(--ft-radius-md);
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    /* Table container - allow scroll but contain it */
+    .ft-table-container {
+        border-radius: 0;
+        margin-left: -12px;
+        margin-right: -12px;
+        width: calc(100% + 24px);
+        max-width: calc(100vw);
+        overflow-x: auto;
+    }
+
+    /* Table adapts to content */
+    .ft-crud-table {
+        min-width: 100%;
+    }
+
+    /* Empty states compact */
+    .ft-table-empty,
+    .ft-empty-state {
+        padding: var(--ft-space-lg);
+    }
+
+    .ft-table-empty i,
+    .ft-empty-state i {
+        font-size: 2.5rem;
+    }
+
+    /* Weather display stacks on small mobile */
+    .ft-weather-display {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .ft-weather-details {
+        text-align: center;
+    }
+
+    .ft-weather-temp {
+        font-size: var(--ft-text-2xl);
+    }
+
+    /* Detail list compact */
+    .ft-detail-list dt {
+        font-size: var(--ft-text-xs);
+        padding-bottom: 0;
+    }
+
+    .ft-detail-list dd {
+        padding-top: var(--ft-space-xs);
+        font-size: var(--ft-text-base);
+        word-break: break-word;
+    }
+
+    /* Footer compact */
+    footer.footer {
+        font-size: var(--ft-text-sm);
+    }
+
+    /* Dashboard grid single column */
+    .ft-dashboard-grid {
+        gap: var(--ft-space-md);
+    }
+
+    /* Widget padding reduction */
+    .ft-widget {
+        padding: var(--ft-space-md);
+    }
+
+    /* Container padding */
+    .container {
+        padding-left: var(--ft-space-sm);
+        padding-right: var(--ft-space-sm);
+    }
+}
+
+/* --- Touch-friendly improvements --- */
+@media (hover: none) and (pointer: coarse) {
+    /* Larger touch targets */
+    .ft-table-actions .btn {
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .ft-nav-link {
+        min-height: 44px;
+    }
+
+    /* Remove hover effects that don't work on touch */
+    .card.ft-card:hover,
+    .ft-widget:hover {
+        transform: none;
+    }
+}
+
+/* ============================================================================
+   PRINT STYLES
+   ============================================================================
+   Optimizations for printed output.
+   ============================================================================ */
+
+@media print {
+    .ft-widget,
+    .card.ft-card {
+        box-shadow: none !important;
+        border: var(--ft-border-1) solid var(--ft-gray-300) !important;
+    }
 }

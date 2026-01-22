@@ -1,41 +1,46 @@
-﻿@model DWA_AU24_Lab2_Group_11.Models.Crop
+@model DWA_AU24_Lab2_Group_11.Models.Crop
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Add Crop";
 }
 
-<h1>Create</h1>
+<h1 class="ft-page-title">
+    <i class="bi bi-plus-circle"></i>Add New Crop
+</h1>
 
-<h4>Crop</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Type" class="control-label"></label>
-                <select asp-for="Type" class="form-control" asp-items="Html.GetEnumSelectList<CropType>()"></select>
-                <span asp-validation-for="Type" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GrowingDurationInDays" class="control-label"></label>
-                <input asp-for="GrowingDurationInDays" class="form-control" />
-                <span asp-validation-for="GrowingDurationInDays" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="ft-crud-card">
+    <form asp-action="Create" class="ft-form">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+        
+        <div class="form-group mb-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" placeholder="Enter crop name" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group mb-3">
+            <label asp-for="Type" class="form-label"></label>
+            <select asp-for="Type" class="form-select" asp-items="Html.GetEnumSelectList<CropType>()">
+                <option value="">-- Select Type --</option>
+            </select>
+            <span asp-validation-for="Type" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group mb-3">
+            <label asp-for="GrowingDurationInDays" class="form-label"></label>
+            <input asp-for="GrowingDurationInDays" class="form-control" placeholder="e.g., 90" />
+            <span asp-validation-for="GrowingDurationInDays" class="text-danger"></span>
+        </div>
+        
+        <div class="ft-form-actions">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-check-lg me-1"></i>Create Crop
+            </button>
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-1"></i>Cancel
+            </a>
+        </div>
+    </form>
 </div>
 
 @section Scripts {
