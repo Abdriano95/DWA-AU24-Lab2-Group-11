@@ -234,7 +234,7 @@ The application comes pre-seeded with realistic demo data:
 ## 👥 Authors
 
 - **Abdulla Mehdi** - [GitHub](https://github.com/Abdriano95)
-- **Joakim Olsson** - [GitHub](https://github.com/joakimolsson)
+- **Joakim Olsson** - [GitHub](https://github.com/joakimolssonn)
 
 *Originally developed as part of the Development of Web Applications course (DWA-AU24) at [University Name]*
 
